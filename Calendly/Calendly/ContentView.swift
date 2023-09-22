@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    let days = ["Sun" , "Mon" , "Tue" , "Wed" , "Thu" , "Fri" ,"Sat"]
+    @State var selectedMonth = 0
     var body: some View {
         VStack {
             Image("rami")
@@ -16,7 +19,7 @@ struct ContentView: View {
                 .frame(width: 128 , height: 128)
                 .cornerRadius(64)
             
-            Text("Rami!")
+            Text("Rami! Mustafa")
                 .font(.title)
                 .bold()
             
@@ -26,7 +29,7 @@ struct ContentView: View {
                 .foregroundColor(.gray)
             
             
-            VStack{
+            VStack (spacing: 20 ) {
                 
                 Text("Rami!")
                     .font(.title2)
@@ -34,7 +37,7 @@ struct ContentView: View {
                 
                 HStack{
                     Spacer()
-
+                    
                     Image(systemName: "lessthan")
                         .resizable()
                         .scaledToFit()
@@ -51,12 +54,41 @@ struct ContentView: View {
                         .frame(width: 16 , height: 28)
                     
                     Spacer()
-
+                }
+                
+                HStack {
+                    ForEach(days , id:\.self) { day in
+                        Text(day)
+                            .font(.system(size: 12 , weight: .medium))
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
+                    
                 }
             }
             
         }
-        .padding()
+    }
+    
+    func fetchDara() -> [CalendarData] {
+        let Calendar = Calendar.current
+        let cureentMonth = fetchSelectedMonth()
+        
+    }
+    
+    
+    func fetchSelectedMonth() -> Date {
+        let Calendar = Calendar.current
+        let month = Calendar.date(byAdding: .month, value: selectedMonth, to: Date())
+        return month!
+    }
+    
+    struct CalendarData : Identifiable {
+        let id = UUID()
+        var day: Int
+        var data: Date
     }
 }
 
@@ -64,4 +96,9 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+
+
+extension Date {
+    	
 }
