@@ -100,5 +100,17 @@ struct ContentView_Previews: PreviewProvider {
 
 
 extension Date {
+    
+    func datesOfMonth() -> [Date] {
+        let calendar = Calendar.current
+        let currentMonth = calendar.component(.month, from: self)
+        let currentYear = calendar.component(.year, from: self)
+        
+        
+        
+        var dates: [Date] = []
+        
+        return dates
+    }
     	
 }
