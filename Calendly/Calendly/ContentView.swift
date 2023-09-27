@@ -72,11 +72,11 @@ struct ContentView: View {
         }
     }
     
-    func fetchDara() -> [CalendarData] {
-        let Calendar = Calendar.current
-        let cureentMonth = fetchSelectedMonth()
-        
-    }
+    //    func fetchDara() -> [CalendarData] {
+    //        let Calendar = Calendar.current
+    //        let cureentMonth = fetchSelectedMonth()
+    //
+    //    }
     
     
     func fetchSelectedMonth() -> Date {
@@ -100,17 +100,29 @@ struct ContentView_Previews: PreviewProvider {
 
 
 extension Date {
-    
-    func datesOfMonth() -> [Date] {
+    func datesOfMonth()-> [Date] {
         let calendar = Calendar.current
         let currentMonth = calendar.component(.month, from: self)
         let currentYear = calendar.component(.year, from: self)
-        
-        
-        
+       
+        var startDateComponents = DateComponents()
+        startDateComponents.year = currentYear
+        startDateComponents.month = currentMonth
+        startDateComponents.day = 1
+        let startDate = calendar.date(from: startDateComponents)!
+       
+        var endDateComponents = DateComponents()
+        endDateComponents.month = 1
+        endDateComponents.day = -1
+        let endDate = calendar.date (byAdding: endDateComponents, to: startDate)!
+       
         var dates: [Date] = []
-        
+        var currentDate = startDate
+       
+        while currentDate <= endDate {
+            dates.append (currentDate)
+            currentDate = calendar.date (byAdding: .day, value: 1, to: currentDate)!
+        }
         return dates
     }
-    	
 }
